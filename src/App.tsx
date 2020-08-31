@@ -10,19 +10,21 @@ export default function App(): React.ReactElement {
     const [users, addUsers] = React.useState([])
     const [scrollY, setScroll] = React.useState(0)
 
+    let rowHeight = 80
+
     let getElementForRender = () => {
-        let start: number = -1
+        let start: number = Math.max(0,Math.floor(scrollY / rowHeight))
         let render: any[] = []
-        for(let i = 0; i < Math.min(users.length, (scrollY + 1800) / 80); i++){
-            if(i >= (scrollY - 1000) / 80){
-                if(start < 0) start = i
+
+        for(let i = start; i < Math.min(users.length, (scrollY + window.innerHeight + 200) / rowHeight); i++){
+            if(i >= (scrollY - 1000) / rowHeight){
                 render.push(users[i])
             }
         }
         return render.map(e => {
             let ind = start
             start++
-            return <User fromTop={ind * 80} key={ind} {...e} />
+            return <User fromTop={ind * rowHeight} key={ind} {...e} />
         })
     }
 

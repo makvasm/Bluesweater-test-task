@@ -12,7 +12,7 @@ interface Props {
 }
 
 
-export const User: React.FC<Props> = (props) => {
+export const User: React.FC<Props> = (props: Props) => {
 
     const style = makeStyles({
         userWrapper: {
